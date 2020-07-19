@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+        db:
+                image: postgres
+                environment:
+                        - POSTGRES_DB=aikodb
+                        - POSTGRES_USER=igor
+                        - POSTGRES_PASSWORD=123
+        api:
+                build: .
+                command: python3 aiko/manage.py runserver 0.0.0.0:8000
+                volumes:
+                        - .:/code
+                ports:
+                        - "8000:8000"
+                depends_on:
+                        - db
